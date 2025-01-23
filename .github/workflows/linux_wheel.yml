@@ -1,6 +1,12 @@
 name: Build for linux
 
-on: workflow_dispatch
+# on: workflow_dispatch
+
+on:
+    push:
+        branches:
+        - main
+
 
 jobs:
   build_wheels:
@@ -13,10 +19,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-    #   - name: Install build tools on Ubuntu
-    #     if: runner.os == 'Linux'
-    #     run: sudo apt-get update && sudo apt-get install -y libasound2-dev
 
       # Used to host cibuildwheel
       - uses: actions/setup-python@v5
@@ -33,7 +35,7 @@ jobs:
           # Skip CPython 3.6 and CPython 3.7
           CIBW_SKIP: cp36-* cp37-*
           CIBW_BUILD_FRONTEND: "build"
-          CIBW_BEFORE_ALL_LINUX: sudo apt-get update && sudo apt-get install -y python3-dev libasound2-dev
+          CIBW_BEFORE_ALL_LINUX: apt-get update && apt-get install -y python3-dev libasound2-dev
 
       - uses: actions/upload-artifact@v4
         with:
