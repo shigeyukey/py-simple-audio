@@ -1,4 +1,4 @@
-name: Build
+name: linux Build
 
 on: workflow_dispatch 
 
