@@ -41,7 +41,14 @@ jobs:
           CIBW_SKIP: cp36-* cp37-* cp38-*
           CIBW_BUILD_FRONTEND: "build"
         #   CIBW_BEFORE_BUILD: yum install -y python3-devel alsa-lib-devel
-          CIBW_BEFORE_BUILD: yum install -y python3-devel alsa-lib-devel
+        #   CIBW_BEFORE_BUILD: yum install -y python3-devel alsa-lib-devel
+          CIBW_BEFORE_BUILD: |
+            if [ "$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)" = "alpine" ]; then
+              apk add --no-cache python3-dev alsa-lib-dev;
+            else
+              yum install -y python3-devel alsa-lib-devel;
+            fi
+
 
       - uses: actions/upload-artifact@v4
         with:
