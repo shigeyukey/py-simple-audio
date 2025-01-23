@@ -10,7 +10,9 @@ jobs:
       matrix:
         #os: [ubuntu-latest]
         # manylinux wheel had problem with absolute path to alsa system, so better to build from source which always works
-        os: [windows-latest, macos-13, macos-14]
+        # os: [windows-latest, macos-13, macos-14]
+        os: [ubuntu-latest]
+        # os: [ubuntu-latest, windows-latest, macos-13, macos-14]
         # macos-13: macos intel
         # macos-14: macos M1
         # see https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories
@@ -37,7 +39,8 @@ jobs:
         #   CIBW_SOME_OPTION: value
         env:
           # Skip CPython 3.6 and CPython 3.7
-          CIBW_SKIP: cp36-* cp37-* *-musllinux_*
+          # CIBW_SKIP: cp36-* cp37-* *-musllinux_*
+          CIBW_SKIP: cp36-* cp37-* cp38-*
           CIBW_BUILD_FRONTEND: "build"
           CIBW_BEFORE_ALL_LINUX: yum install -y alsa-lib-devel
          
