@@ -40,8 +40,7 @@ jobs:
           # Skip CPython 3.6 and CPython 3.7
           CIBW_SKIP: cp36-* cp37-*
           CIBW_BUILD_FRONTEND: "build"
-          CIBW_BEFORE_BUILD_LINUX: yum-config-manager --add-repo=http://mirror.centos.org/centos/7/os/x86_64/ && \
-            yum install -y python3-devel alsa-lib-devel
+          CIBW_BEFORE_BUILD: yum install -y python3-devel alsa-lib-devel
 
       - uses: actions/upload-artifact@v4
         with:
